@@ -1,5 +1,6 @@
 <?php 
-	require 'session_management.php';
+require 'session_management.php';
+manage('everyone'); //everyone can view
 	require '../database/database.php';
 	
 	//check if cust -> if the cust_id matches the user_id
@@ -68,6 +69,7 @@
 		    		</div>
     		
 	    			<form class="form-horizontal" action="orders_update.php?id=<?php echo $id?>" method="post">
+					
 					  <div class="control-group <?php echo !empty($statusError)?'error':'';?>">
 					    <label class="control-label">Status</label>
 					    <div class="controls">
@@ -77,10 +79,12 @@
 					      	<?php endif; ?>
 					    </div>
 					  </div>
+					  
 					  <div class="form-actions">
 						  <button type="submit" class="btn btn-success">Update</button>
 						  <a class="btn" href="orders.php">Back</a>
 						</div>
+						
 					</form>
 				</div>
 				

@@ -1,5 +1,6 @@
 <?php 
-	require 'session_management.php';
+require 'session_management.php';
+manage('employee'); //only employees can view
 	require '../database/database.php';
 	$id = null;
 	if ( !empty($_GET['id'])) {
@@ -35,6 +36,17 @@
 		    			<h3>Part Details</h3>
 		    		</div>
 		    		
+					<div class='control-group col-md-6'>
+						<div class="controls ">
+							<?php 
+							if (!empty($data['file_content']) && $data['file_size'] > 0) 
+								echo '<img  height=5%; width=15%; src="data:' . $data['file_type'] . ';base64,' .base64_encode($data['file_content']). '" />'; 
+							else 
+								echo 'No photo on file.';
+							?><!-- converts to base 64 due to the need to read the binary files code and display img -->
+						</div>
+					</div>
+					
 	    			<div class="form-horizontal" >
 					  <div class="control-group">
 					    <label class="control-label">Name</label>

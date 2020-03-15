@@ -1,5 +1,6 @@
 <?php 
 	require 'session_management.php';
+	manage('customer'); //only customers can view
 	require '../database/database.php';
 	
 	//not using id, just user_id, bc noone except for the user can change their data

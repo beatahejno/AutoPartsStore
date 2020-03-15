@@ -1,5 +1,6 @@
 <?php 
-	require 'session_management.php';
+require 'session_management.php';
+manage('employee'); //only employees can view
 	require '../database/database.php';
 	$id = 0;
 	

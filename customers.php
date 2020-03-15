@@ -1,5 +1,6 @@
 <?php 
 require 'session_management.php';
+manage('employee'); //only employees can view
 ?>
 
 <!DOCTYPE html>
@@ -16,8 +17,14 @@ require 'session_management.php';
 			<div class="row">
 				<button onclick="location.href = 'orders.php';" id="myButton" class="float-left submit-button" >Orders</button>
     			<button onclick="location.href = 'parts.php';" id="myButton" class="float-left submit-button" >Parts</button>
+				<button onclick="location.href = 'employees.php';" id="myButton" class="float-left submit-button" >Employees</button>
 				<h3>Customers</h3>
     		</div>
+			
+			<?php 
+			require 'logout_n_profile.php'
+			?>
+			
 			<div class="row">
 				
 				<table class="table table-striped table-bordered">

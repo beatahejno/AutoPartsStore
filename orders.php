@@ -1,5 +1,6 @@
 <?php
 require 'session_management.php';
+manage('everyone'); //everyone can view
 ?>
 
 <!DOCTYPE html>
@@ -22,27 +23,16 @@ require 'session_management.php';
     		echo '</div>';
 			?>
 			
-			<div class="row">
-			<form method="post">  <!-----_POST['logout'] is used in session_management --->
-				<input type="submit" name="logout" value="Log Out"/> 
-			</form>
-			</div>
+			<?php 
+			require 'logout_n_profile.php'
+			?>
 			
 			<div class="row">
 				
 				<?php
-				if($title=="customer"){ //update the profile thingy & create button for customers only
+				if($title=="customer"){ //create button for customers only
 					echo '<p>';
 					echo '<a href="orders_create.php" class="btn btn-success">Create</a>';
-					echo '</p>';
-					
-					echo '<p>';
-					echo '<a href="customers_update.php" class="btn btn-success">Update your customer profile</a>';
-					echo '</p>';
-				}
-				if($title=="employee"){
-					echo '<p>';
-					echo '<a href="employees_update.php" class="btn btn-success">Update your employee profile</a>';
 					echo '</p>';
 				}
 				?>

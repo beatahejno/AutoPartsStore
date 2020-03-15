@@ -1,5 +1,6 @@
 <?php
 require 'session_management.php';
+manage('everyone'); //everyone can view
 
 	require '../database/database.php';
 	$id = null;

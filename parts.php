@@ -1,5 +1,6 @@
 <?php
 require 'session_management.php';
+manage('everyone'); //everyone can view
 ?>
 
 <!DOCTYPE html>
@@ -8,6 +9,11 @@ require 'session_management.php';
     <meta charset="utf-8">
     <link   href="css/bootstrap.min.css" rel="stylesheet">
     <script src="js/bootstrap.min.js"></script>
+	<style> img {
+		max-width: height;
+		height: 20%;
+	}
+	</style>
 </head>
 
 <body>
@@ -22,6 +28,10 @@ require 'session_management.php';
     		echo '</div>';
 			?>
 			
+			<?php 
+			require 'logout_n_profile.php'
+			?>
+			
 			<div class="row">
 				<?php //customers can't create parts
 				if($title=="employee") echo '<p>';
@@ -31,6 +41,7 @@ require 'session_management.php';
 				<table class="table table-striped table-bordered">
 		              <thead>
 		                <tr>
+						  <th>Picture</th>
 		                  <th>Name</th>
 		                  <th>Type</th>
 		                  <th>Price</th>
@@ -45,6 +56,10 @@ require 'session_management.php';
 					   $sql = 'SELECT * FROM car_Parts ORDER BY id DESC';
 	 				   foreach ($pdo->query($sql) as $row) {
 						   		echo '<tr>';
+								if (!empty($row['file_content']) && $row['file_size'] > 0) 
+										echo '<td> <img src="data:' . $row['file_type'] . ';base64,' .base64_encode($row['file_content']). '" /></td>'; 
+									else 
+										echo '<td>No photo on file.</td>';
 							   	echo '<td>'. $row['name'] . '</td>';
 								echo '<td>'. $row['type'] . '</td>';
 							   	echo '<td>'. $row['price'] . '</td>';

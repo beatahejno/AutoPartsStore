@@ -5,15 +5,13 @@
 		// keep track validation errors
 		$fnameError = null;
 		$lnameError = null;
-		$addressError = null;
-		$emailError = null;
+		$loginError = null;
 		$passwordError = null;
 		
 		// keep track post values
 		$fname = $_POST['fname'];
 		$lname = $_POST['lname'];
-		$address = $_POST['address'];
-		$email = $_POST['email'];
+		$login = $_POST['login'];
 		$password = $_POST['password'];
 		$passwordhash = MD5($password);
 		
@@ -29,16 +27,8 @@
 			$valid = false;
 		}
 		
-		if (empty($email)) {
-			$emailError = 'Please enter valid Email Address';
-			$valid = false;
-		} else if ( !filter_var($email,FILTER_VALIDATE_EMAIL) ) {
-			$emailError = 'Please enter a valid Email Address';
-			$valid = false;
-		}
-		
-		if (empty($address)) {
-			$addressError = 'Please enter address';
+		if (empty($login)) {
+			$loginError = 'Please enter login';
 			$valid = false;
 		}
 		
@@ -50,11 +40,11 @@
 		if ($valid) {
 			$pdo = Database::connect();
 			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$sql = "INSERT INTO car_Customers (fname, lname, address, email, password) values(?, ?, ?, ?, ?)";
+			$sql = "INSERT INTO car_Employees (fname, lname, login, password) values(?, ?, ?, ?)";
 			$q = $pdo->prepare($sql);
-			$q->execute(array($fname,$lname, $address, $email, $passwordhash));
+			$q->execute(array($fname,$lname, $login, $passwordhash));
 			Database::disconnect();
-			header("Location: login.php");
+			header("Location: login_employee.php");
 		}
 	}
 ?>
@@ -73,10 +63,10 @@
     
     			<div class="span10 offset1">
     				<div class="row">
-		    			<h3>Register</h3>
+		    			<h3>Send request to register as employee</h3>
 		    		</div>
     		
-	    			<form class="form-horizontal" action="customers_create.php" method="post">
+	    			<form class="form-horizontal" action="employees_create.php" method="post">
 					  <div class="control-group <?php echo !empty($fnameError)?'error':'';?>">
 					    <label class="control-label">First Name</label>
 					    <div class="controls">
@@ -95,21 +85,12 @@
 					      	<?php endif; ?>
 					    </div>
 					  </div>
-					  <div class="control-group <?php echo !empty($addressError)?'error':'';?>">
-					    <label class="control-label">Address</label>
+					  <div class="control-group <?php echo !empty($loginError)?'error':'';?>">
+					    <label class="control-label">Login</label>
 					    <div class="controls">
-					      	<input name="address" type="text"  placeholder="Address" value="<?php echo !empty($address)?$address:'';?>">
-					      	<?php if (!empty($addressError)): ?>
-					      		<span class="help-inline"><?php echo $addressError;?></span>
-					      	<?php endif;?>
-					    </div>
-					  </div>
-					  <div class="control-group <?php echo !empty($emailError)?'error':'';?>">
-					    <label class="control-label">Email Address</label>
-					    <div class="controls">
-					      	<input name="email" type="text" placeholder="Email Address" value="<?php echo !empty($email)?$email:'';?>">
-					      	<?php if (!empty($emailError)): ?>
-					      		<span class="help-inline"><?php echo $emailError;?></span>
+					      	<input name="login" type="text"  placeholder="login" value="<?php echo !empty($login)?$login:'';?>">
+					      	<?php if (!empty($loginError)): ?>
+					      		<span class="help-inline"><?php echo $loginError;?></span>
 					      	<?php endif;?>
 					    </div>
 					  </div>

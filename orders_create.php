@@ -1,5 +1,6 @@
 <?php 
-	require 'session_management.php';
+require 'session_management.php';
+manage('everyone'); //everyone can view
 	require '../database/database.php';
 
 	if ( !empty($_POST) ) {
@@ -67,8 +68,9 @@
 							<div class="controls">
 								<?php
 									$pdo = Database::connect();
-									$sql = 'SELECT * FROM car_Customers ORDER BY lname ASC, fname ASC';
-									if($title=="customer") $sql .= ' WHERE id=' . $user_id;
+									$sql = 'SELECT * FROM car_Customers ';
+									if($title=="customer") $sql .= 'WHERE id=' . $user_id;
+									$sql .= ' ORDER BY lname ASC, fname ASC';
 									echo "<select class='form-control' name='customer' id='car_cust_id'>";
 									foreach ($pdo->query($sql) as $row) {
 										echo "<option value='" . $row['id'] . " '> " . $row['lname'] . ', ' .$row['fname'] . "</option>";
